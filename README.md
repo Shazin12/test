@@ -25,7 +25,7 @@
 💥Updates channel Support.
 💥Mongodb database support for broadcasting.
 ```
-### If you are having issues deploying bot you may sponsor me 5$ through this [link](https://github.com/sponsors/adarsh-goel/) and add your telegram username in issues in this repository with payment proof.
+### If you are having issues deploying bot you may contact me through this [link](https://t.me/Selling24x7) and I will try to respond as soon as possible <3.
 
 ## `Star and fork the repo Before deploying`
    
