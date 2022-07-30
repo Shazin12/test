@@ -26,7 +26,7 @@
           "description": "Test App"
       },
       "API_ID": {
-          "description": "\18676426"
+          "description": "18676426"
       },
       "API_HASH": {
           "description": "45257961980184a76d3ded65e31955ae"
@@ -42,7 +42,7 @@
           "description": "MongoDB URI for saving User IDs when they first Start the Bot. We will use that for Broadcasting to them. I will try to add more features related with Database. If you need help search for a tutorial on youtbe"
       },
       "OWNER_ID": {
-          "description": "Your Telegram User ID  like 1234509"
+          "description": "887878891"
       },
       "BANNED_CHANNELS": {
           "description": "Put IDs of Banned Channels where bot will not work. You can add multiple IDs & separate with Space.",
