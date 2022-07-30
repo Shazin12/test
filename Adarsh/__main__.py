@@ -7,11 +7,11 @@ import logging
 import importlib
 from pathlib import Path
 from pyrogram import idle
-from .bot import StreamBot
-from .vars import Var
+from bot import StreamBot
+from vars import Var
 from aiohttp import web
-from .server import web_server
-from .utils.keepalive import ping_server
+from server import web_server
+from utils.keepalive import ping_server
 from apscheduler.schedulers.background import BackgroundScheduler
 
 logging.basicConfig(

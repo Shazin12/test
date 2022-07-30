@@ -1,25 +1,27 @@
 # (c) adarsh-goel
 
-from Adarsh.bot import StreamBot
-from Adarsh.vars import Var
-from Adarsh.utils.human_readable import humanbytes
-from Adarsh.utils.database import Database
+from pyshorteners import Shortener
+from bot import StreamBot
+from vars import Var
+from utils.human_readable import humanbytes
+from utils.database import Database
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors import UserNotParticipant
 db = Database(Var.DATABASE_URL, Var.SESSION_NAME)
-from pyshorteners import Shortener
+
 
 def get_shortlink(url):
-   shortlink = False 
-   try:
-      shortlink = Shortener().dagd.short(url)
-   except Exception as err:
-       print(err)
-       pass
-   return shortlink
+    shortlink = False
+    try:
+        shortlink = Shortener().dagd.short(url)
+    except Exception as err:
+        print(err)
+        pass
+    return shortlink
 
-@StreamBot.on_message(filters.command('start') & filters.private & ~filters.edited)
+
+@StreamBot.on_message(filters.command('start') & filters.private)
 async def start(b, m):
     if not await db.is_user_exist(m.from_user.id):
         await db.add_user(m.from_user.id)
@@ -47,7 +49,8 @@ async def start(b, m):
                     reply_markup=InlineKeyboardMarkup(
                         [
                             [
-                                InlineKeyboardButton("JOIN🔓", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
+                                InlineKeyboardButton(
+                                    "JOIN🔓", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
                             ]
                         ]
                     ),
@@ -71,11 +74,9 @@ async def start(b, m):
 <b>Dont Spam.</b>""",
             parse_mode="HTML",
             disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup( [ [InlineKeyboardButton('Owner', url=f"https://t.me/adarsh_goel"),
-                                                                                       InlineKeyboardButton('Follow ', url='https://github.com/adarsh-goel') ] ]  ) )
-                                                                                       
-                                                                                       
-                                                                            
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('Owner', url=f"https://t.me/adarsh_goel"),
+                                                InlineKeyboardButton('Follow ', url='https://github.com/adarsh-goel')]]))
+
     else:
         if Var.UPDATES_CHANNEL != "None":
             try:
@@ -95,11 +96,12 @@ async def start(b, m):
                     reply_markup=InlineKeyboardMarkup(
                         [
                             [
-                                InlineKeyboardButton("🤖 Join Updates Channel", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
+                                InlineKeyboardButton(
+                                    "🤖 Join Updates Channel", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
                             ],
                             [
                                 InlineKeyboardButton("🔄 Refresh / Try Again",
-                                                     url=f"https://t.me/{Var.APP_NAME}.herokuapp.com/{usr_cmd}") # Chnage ur app name
+                                                     url=f"https://t.me/{Var.APP_NAME}.herokuapp.com/{usr_cmd}")  # Chnage ur app name
                             ]
                         ]
                     ),
@@ -141,7 +143,7 @@ async def start(b, m):
         if shortlinka:
             online_link = shortlinka
 
-        msg_text ="""
+        msg_text = """
 <i><u>𝗬𝗼𝘂𝗿 𝗟𝗶𝗻𝗸 𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗲𝗱 !</u></i>
 
 <b>📂 Fɪʟᴇ ɴᴀᴍᴇ :</b> <i>{}</i>
@@ -157,14 +159,15 @@ async def start(b, m):
 """
 
         await m.reply_text(
-            text=msg_text.format(file_name, file_size, online_link, stream_link),
+            text=msg_text.format(file_name, file_size,
+                                 online_link, stream_link),
             parse_mode="HTML",
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🖥STREAM", url=stream_link), #Stream Link
-                                                InlineKeyboardButton('Dᴏᴡɴʟᴏᴀᴅ📥', url=online_link)]]) #Download Link
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🖥STREAM", url=stream_link),  # Stream Link
+                                                InlineKeyboardButton('Dᴏᴡɴʟᴏᴀᴅ📥', url=online_link)]])  # Download Link
         )
 
 
-@StreamBot.on_message(filters.command('help') & filters.private & ~filters.edited)
+@StreamBot.on_message(filters.command('help') & filters.private)
 async def help_handler(bot, message):
     if not await db.is_user_exist(message.from_user.id):
         await db.add_user(message.from_user.id)
@@ -190,7 +193,8 @@ async def help_handler(bot, message):
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
-                            InlineKeyboardButton("🤖 Jᴏɪɴ Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
+                            InlineKeyboardButton(
+                                "🤖 Jᴏɪɴ Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
                         ]
                     ]
                 ),
@@ -204,14 +208,15 @@ async def help_handler(bot, message):
                 parse_mode="markdown",
                 disable_web_page_preview=True)
             return
-   
+
     await message.reply_text(
-       text="Send me any file/media from telegram, I'll provide external direct download link..",
-            parse_mode="HTML",
-            
-          reply_markup=InlineKeyboardMarkup(
+        text="Send me any file/media from telegram, I'll provide external direct download link..",
+        parse_mode="HTML",
+
+        reply_markup=InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton("😇Donate", url="https://t.me/agprojects")]
+                [InlineKeyboardButton(
+                    "😇Donate", url="https://t.me/agprojects")]
             ]
         )
     )

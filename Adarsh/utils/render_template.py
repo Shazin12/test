@@ -1,8 +1,8 @@
 # (c) adarsh-goel
-from Adarsh.vars import Var
-from Adarsh.bot import StreamBot
-from Adarsh.utils.custom_dl import TGCustomYield
-from Adarsh.utils.file_size import human_size
+from vars import Var
+from bot import StreamBot
+from utils.custom_dl import TGCustomYield
+from utils.file_size import human_size
 import urllib.parse
 import secrets
 import mimetypes

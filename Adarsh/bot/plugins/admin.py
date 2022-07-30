@@ -6,32 +6,43 @@ import random
 import asyncio
 import aiofiles
 import datetime
-from Adarsh.utils.broadcast_helper import send_msg
-from Adarsh.utils.database import Database
-from Adarsh.bot import StreamBot
-from Adarsh.vars import Var
+from utils.broadcast_helper import send_msg
+# from Adarsh.utils.broadcast_helper import send_msg
+from utils.database import Database
+from bot import StreamBot
+from vars import Var
 from pyrogram import filters, Client
 from pyrogram.types import Message
 db = Database(Var.DATABASE_URL, Var.SESSION_NAME)
 broadcast_ids = {}
+app =Client(
+    # session_name='Web Streamer',
+    name="test_bot",
+    api_id=18676426,
+    api_hash="45257961980184a76d3ded65e31955ae",
+    bot_token="5342549328:AAGIBbyiNd1-38XO_DDgb6IwKUZhZiWFCiE",
+    sleep_threshold=Var.SLEEP_THRESHOLD,
+    workers=Var.WORKERS
+)
 
 
-@StreamBot.on_message(filters.command("status") & filters.private & filters.user(Var.OWNER_ID) & ~filters.edited)
+@app.on_message(filters.command("status") & filters.private & filters.user(Var.OWNER_ID))
 async def sts(c: Client, m: Message):
     total_users = await db.total_users_count()
     await m.reply_text(text=f"**Numbers of users:** `{total_users}`", parse_mode="Markdown", quote=True)
 
 
-@StreamBot.on_message(filters.command("broadcast") & filters.private & filters.user(Var.OWNER_ID) & filters.reply & ~filters.edited)
+@app.on_message(filters.command("broadcast") & filters.private & filters.user(Var.OWNER_ID) & filters.reply)
 async def broadcast_(c, m):
-    user_id=m.from_user.id
+    user_id = m.from_user.id
     out = await m.reply_text(
-            text=f"Broadcast initiated! You will be notified with log file when all the users are notified."
+        text=f"Broadcast initiated! You will be notified with log file when all the users are notified."
     )
     all_users = await db.get_all_users()
     broadcast_msg = m.reply_to_message
     while True:
-        broadcast_id = ''.join([random.choice(string.ascii_letters) for i in range(3)])
+        broadcast_id = ''.join(
+            [random.choice(string.ascii_letters) for i in range(3)])
         if not broadcast_ids.get(broadcast_id):
             break
     start_time = time.time()

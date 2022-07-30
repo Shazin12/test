@@ -2,7 +2,7 @@
 
 import logging
 import requests
-from ..vars import Var
+from vars import Var
 def ping_server():
     k = requests.get(f'https://ping-pong-sn.herokuapp.com/pingback?link={Var.URL}').json()
     if not k.get('error'):

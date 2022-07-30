@@ -4,7 +4,7 @@
 import math
 from typing import Union
 from pyrogram.types import Message
-from ..bot import StreamBot
+from bot import StreamBot
 from pyrogram import Client, utils, raw
 from pyrogram.session import Session, Auth
 from pyrogram.errors import AuthBytesInvalid
@@ -33,7 +33,8 @@ class TGCustomYield:
     @staticmethod
     async def generate_file_properties(msg: Message):
         error_message = "This message doesn't contain any downloadable media"
-        available_media = ("audio", "document", "photo", "sticker", "animation", "video", "voice", "video_note")
+        available_media = ("audio", "document", "photo", "sticker",
+                           "animation", "video", "voice", "video_note")
 
         if isinstance(msg, Message):
             for kind in available_media:
@@ -150,7 +151,7 @@ class TGCustomYield:
         return location
 
     async def yield_file(self, media_msg: Message, offset: int, first_part_cut: int,
-                         last_part_cut: int, part_count: int, chunk_size: int) -> Union[str, None]: #pylint: disable=unsubscriptable-object
+                         last_part_cut: int, part_count: int, chunk_size: int) -> Union[str, None]:  # pylint: disable=unsubscriptable-object
         client = self.main_bot
         data = await self.generate_file_properties(media_msg)
         media_session = await self.generate_media_session(client, media_msg)
@@ -192,6 +193,7 @@ class TGCustomYield:
                 current_part += 1
 
     async def download_as_bytesio(self, media_msg: Message):
+
         client = self.main_bot
         data = await self.generate_file_properties(media_msg)
         media_session = await self.generate_media_session(client, media_msg)
