@@ -23,16 +23,16 @@
           "value": "True"
       },
       "APP_NAME": {
-          "description": "Copy-Paste the app name that you just typed above."
+          "description": "Test App"
       },
       "API_ID": {
-          "description": "Get this value from https://my.telegram.org"
+          "description": "\18676426"
       },
       "API_HASH": {
-          "description": "Get this value from https://my.telegram.org"
+          "description": "45257961980184a76d3ded65e31955ae"
       },
       "BOT_TOKEN": {
-          "description": "Get this value from @BotFather"
+          "description": "5342549328:AAGIBbyiNd1-38XO_DDgb6IwKUZhZiWFCiE"
       },
       "BIN_CHANNEL": {
           "description": "The BIN Channel ID. Read the readme for more info about this var"
